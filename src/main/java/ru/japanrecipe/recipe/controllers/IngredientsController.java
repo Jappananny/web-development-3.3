@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.japanrecipe.recipe.model.Ingredient;
 import ru.japanrecipe.recipe.service.IngredientService;
 @RestController
-@RequestMapping("/ingredient/")
+@RequestMapping("/ingredient")
 public class IngredientsController {
     private IngredientService ingredientService;
-    @GetMapping("/ingredient/")
+    @GetMapping("/startING")
     public String mainPage() {
         return "Сратовая страничка ингредиентов";
     }
-    @GetMapping("/addIngredient/")
+    @GetMapping("/addIngredient")
     public void addRecipe(@RequestParam Ingredient ingredient) {
         this.ingredientService.addIngredient(ingredient);
     }
-    @GetMapping("/ingredientId/")
+    @GetMapping("/ingredientId")
     public void getIngredientId(@RequestParam Integer id) {
         this.ingredientService.getIngredient(id);
     }

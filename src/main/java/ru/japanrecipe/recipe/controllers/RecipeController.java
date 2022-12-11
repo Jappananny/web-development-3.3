@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.japanrecipe.recipe.model.Recipe;
 import ru.japanrecipe.recipe.service.RecipeService;
 @RestController
-@RequestMapping("/recipes/")
+@RequestMapping("/recipes")
 public class RecipeController {
     private RecipeService recipeService;
-    @GetMapping("/recipes/")
+    @GetMapping("/startRec")
     public String mainPage() {
         return "Стартовая страничка рецептов";
     }
-    @GetMapping("/addRecipe/")
+    @GetMapping("/addRecipe")
     public void addRecipe(@RequestParam Recipe recipe) {
         this.recipeService.addRecipe(recipe);
     }
-    @GetMapping("/recipeId/")
+    @GetMapping("/recipeId")
     public void getRecipeId(@RequestParam Integer id) {
         this.recipeService.getRecipeId(id);
     }
