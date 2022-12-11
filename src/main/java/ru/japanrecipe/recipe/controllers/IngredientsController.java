@@ -1,24 +1,43 @@
 package ru.japanrecipe.recipe.controllers;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.japanrecipe.recipe.model.Ingredient;
-import ru.japanrecipe.recipe.service.IngredientService;
+import ru.japanrecipe.recipe.service.impl.IngredientService;
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientsController {
     private IngredientService ingredientService;
-    @GetMapping("/startING")
+    //Старовая страница ингредиентов
+    @GetMapping("/startIng")
     public String mainPage() {
         return "Сратовая страничка ингредиентов";
     }
+    //Добавление ингрелиента
     @GetMapping("/addIngredient")
-    public void addRecipe(@RequestParam Ingredient ingredient) {
+    public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient) {
         this.ingredientService.addIngredient(ingredient);
+        return ResponseEntity.ok("Ингредиент добавлен");
     }
+    //Получение айли ингредиента
     @GetMapping("/ingredientId")
     public void getIngredientId(@RequestParam Integer id) {
         this.ingredientService.getIngredient(id);
+    }
+    //Изменяет ингридиент
+    @PutMapping("/update/{ingredientId}")
+    public ResponseEntity<String> update(@PathVariable String ingredientId, @RequestBody Ingredient ingredient) {
+        ingredientService.updateIngredient(Integer.parseInt(ingredientId), ingredient);
+        return  ResponseEntity.ok("Рецепт изменен");
+    }
+    //Удоляет иншридиент
+    @DeleteMapping("/delete/{ingredientId}")
+    public void delete(@PathVariable String ingredientId) {
+        ingredientService.deleteIngredient(Integer.parseInt(ingredientId));
+    }
+    //Вывод всех ингредиентов
+    @GetMapping(value = "/allIngredients")
+    @ResponseBody
+    public String allIngedients(@PathVariable Integer id, @PathVariable String name) {
+        return "ID: " + id + ", Название: " + name;
     }
 }

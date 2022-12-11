@@ -1,6 +1,7 @@
-package ru.japanrecipe.recipe.service;
+package ru.japanrecipe.recipe.service.impl;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.model.Ingredient;
+import ru.japanrecipe.recipe.service.IngredientServiceInterface;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -16,5 +17,13 @@ public class IngredientService implements IngredientServiceInterface {
     @Override
     public Ingredient getIngredient(Integer id) {
         return ingredientsMap.get(id);
+    }
+    @Override
+    public void updateIngredient(Integer ingredientId, Ingredient ingredient) {
+        ingredientsMap.put(ingredientId, ingredient);
+    }
+    @Override
+    public void deleteIngredient(Integer ingredientId) {
+        ingredientsMap.remove(ingredientId);
     }
 }
