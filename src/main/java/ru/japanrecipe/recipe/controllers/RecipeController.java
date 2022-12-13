@@ -4,21 +4,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.japanrecipe.recipe.model.Recipe;
-import ru.japanrecipe.recipe.service.RecipeService;
+import ru.japanrecipe.recipe.service.RecipeServiceImpl;
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
-    private RecipeService recipeService;
+    private RecipeServiceImpl recipeServiceImpl;
     @GetMapping("/startRec")
     public String mainPage() {
         return "Стартовая страничка рецептов";
     }
     @GetMapping("/addRecipe")
     public void addRecipe(@RequestParam Recipe recipe) {
-        this.recipeService.addRecipe(recipe);
+        this.recipeServiceImpl.addRecipe(recipe);
     }
     @GetMapping("/recipeId")
     public void getRecipeId(@RequestParam Integer id) {
-        this.recipeService.getRecipeId(id);
+        this.recipeServiceImpl.getRecipeId(id);
     }
 }
