@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class Recipe {
     private String name;
-    private int time;
+    private int cookingTime;
     private List<Ingredient> ingredientList = new ArrayList<>();
     private LinkedList<String> steps = new LinkedList<>();
 }
