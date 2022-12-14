@@ -6,14 +6,19 @@ import ru.japanrecipe.recipe.service.impl.IngredientService;
 @RestController
 @RequestMapping("/ingredient")
 public class IngredientsController {
-    private IngredientService ingredientService;
+    private final IngredientService ingredientService;
+
+    public IngredientsController(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
+    }
+
     //Старовая страница ингредиентов
     @GetMapping("/startIng")
     public String mainPage() {
         return "Сратовая страничка ингредиентов";
     }
     //Добавление ингрелиента
-    @GetMapping("/addIngredient")
+    @PostMapping("/addIngredient")
     public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient) {
         this.ingredientService.addIngredient(ingredient);
         return ResponseEntity.ok("Ингредиент добавлен");

@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Service
 public class IngredientService implements IngredientServiceInterface {
-    private static Integer id;
+    private static Integer id = 0;
     private final static Map<Integer, Ingredient> ingredientsMap = new LinkedHashMap<>();
     @Override
     public void addIngredient(Ingredient ingredients) {
