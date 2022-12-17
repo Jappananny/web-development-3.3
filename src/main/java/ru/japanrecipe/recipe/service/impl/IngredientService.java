@@ -1,4 +1,5 @@
 package ru.japanrecipe.recipe.service.impl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.model.Ingredient;
 import ru.japanrecipe.recipe.service.IngredientServiceInterface;
@@ -24,6 +25,7 @@ public class IngredientService implements IngredientServiceInterface {
     }
     @Override
     public void deleteIngredient(Integer ingredientId) {
+        StringUtils.isAnyEmpty();
         ingredientsMap.remove(ingredientId);
     }
 }
