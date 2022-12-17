@@ -6,6 +6,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class Ingredient {
     private String name;
-    private int count;
-    private String unit;
+    private int weght;
+    private String measureUnit;
 }
