@@ -1,9 +1,8 @@
 package ru.japanrecipe.recipe.service;
 
-import org.apache.tomcat.util.buf.StringUtils;
 import ru.japanrecipe.recipe.model.Ingredient;
 
-public interface IngredientServiceInterface {
+public interface IngredientService {
     void addIngredient(Ingredient ingredients);
 
     Ingredient getIngredient(Integer id);

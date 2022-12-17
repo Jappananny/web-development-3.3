@@ -1,13 +1,13 @@
 package ru.japanrecipe.recipe.service.impl;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.model.Recipe;
-import ru.japanrecipe.recipe.service.RecipeServiceInterface;
+import ru.japanrecipe.recipe.service.RecipeService;
 import java.util.LinkedHashMap;
 import java.util.Map;
 @Service
-public class RecipeService implements RecipeServiceInterface {
+public class RecipeServiceImpl implements RecipeService {
     private static Integer id = 0;
-    private final static Map<Integer, Recipe> recipeMap = new LinkedHashMap<>();
+    private final Map<Integer, Recipe> recipeMap = new LinkedHashMap<>();
     @Override
     public void addRecipe(Recipe recipe) {
         recipeMap.put(id, recipe);
