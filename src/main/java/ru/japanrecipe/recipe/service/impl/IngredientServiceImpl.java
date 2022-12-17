@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class IngredientServiceImpl implements IngredientService {
     private static Integer id;
-    private final static Map<Integer, Ingredient> ingredientsMap = new LinkedHashMap<>();
+    private final Map<Integer, Ingredient> ingredientsMap = new LinkedHashMap<>();
     @Override
     public void addIngredient(Ingredient ingredients) {
         ingredientsMap.put(id++, ingredients);

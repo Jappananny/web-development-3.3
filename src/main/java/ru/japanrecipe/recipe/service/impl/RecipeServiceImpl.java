@@ -15,7 +15,7 @@ public class RecipeServiceImpl implements RecipeService {
     final private FilesService filesService;
     private Integer id = counter;
     private static Integer counter = 0;
-    private static Map<Integer, Recipe> recipeMap = new LinkedHashMap<>();
+    private Map<Integer, Recipe> recipeMap = new LinkedHashMap<>();
 
     public RecipeServiceImpl(FilesService filesService) {
         this.filesService = filesService;
