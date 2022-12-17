@@ -4,14 +4,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.japanrecipe.recipe.model.Recipe;
-import ru.japanrecipe.recipe.service.impl.RecipeService;
+import ru.japanrecipe.recipe.service.impl.RecipeServiceImpl;
+
+import java.io.IOException;
 @RestController
 @RequestMapping("/recipes")
 @Tag(name = "Рецепты", description = "CRUD операции с рецептами")
 public class RecipeController {
-    private final RecipeService recipeService;
-    public RecipeController(RecipeService recipeService) {
-        this.recipeService = recipeService;
+    private final RecipeServiceImpl recipeServiceImpl;
+    public RecipeController(RecipeServiceImpl recipeServiceImpl) {
+        this.recipeServiceImpl = recipeServiceImpl;
     }
     //стартовая страница рецептов
     @GetMapping("/startRec")
@@ -23,27 +25,27 @@ public class RecipeController {
     @PostMapping("/addRecipe")
     @Operation(summary = "Добавление рецепта", description = "Добовляет рецепт через тело запроса")
     public ResponseEntity<String> addRecipe(@RequestBody Recipe recipe) {
-        this.recipeService.addRecipe(recipe);
+        this.recipeServiceImpl.addRecipe(recipe);
         return ResponseEntity.ok("Рецепт добавлен");
     }
     //Выводит айди рецепта
-    @GetMapping("/recipeId/{recipeId}")
+    @GetMapping("/recipeId/{id}")
     @Operation(summary = "Вывод рецепта", description = "Выводит рецепт по айди в формате json")
-    public void getRecipeId(@RequestParam Integer id) {
-        this.recipeService.getRecipeId(id);
+    public ResponseEntity<Recipe> getRecipeId(@PathVariable Integer id) throws IOException {
+        return recipeServiceImpl.getRecipeId(id);
     }
     //Изменяет рецепт
-    @PutMapping("/update/{recipeId}")
+    @PutMapping("/update/{id}")
     @Operation(summary = "Изменение рецепт", description = "Изменяет рецепт по айди в формате json")
     public ResponseEntity<String> update(@PathVariable String recipeId, @RequestBody Recipe recipe) {
-        recipeService.updateRecipe(Integer.parseInt(recipeId), recipe);
+        recipeServiceImpl.updateRecipe(Integer.parseInt(recipeId), recipe);
         return  ResponseEntity.ok("Рецепт изменен");
     }
     //Удоляет рецепт
-    @DeleteMapping("/delete/{recipeId}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "Улоление рецепт", description = "Удоляет рецепт по айди")
     public void delete(@PathVariable String recipeId) {
-        recipeService.deleteRecipe(Integer.parseInt(recipeId));
+        recipeServiceImpl.deleteRecipe(Integer.parseInt(recipeId));
     }
 
 }

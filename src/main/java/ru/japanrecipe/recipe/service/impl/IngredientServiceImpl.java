@@ -2,12 +2,12 @@ package ru.japanrecipe.recipe.service.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.model.Ingredient;
-import ru.japanrecipe.recipe.service.IngredientServiceInterface;
+import ru.japanrecipe.recipe.service.IngredientService;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
-public class IngredientService implements IngredientServiceInterface {
+public class IngredientServiceImpl implements IngredientService {
     private static Integer id;
     private final static Map<Integer, Ingredient> ingredientsMap = new LinkedHashMap<>();
     @Override

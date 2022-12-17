@@ -1,10 +1,16 @@
 package ru.japanrecipe.recipe.service;
+import org.springframework.http.ResponseEntity;
 import ru.japanrecipe.recipe.model.Recipe;
 
-public interface RecipeServiceInterface {
+import java.io.IOException;
+
+public interface RecipeService {
     void addRecipe(Recipe recipe);
 
-    Recipe getRecipeId(Integer id);
+    ResponseEntity<Recipe> getRecipeId(Integer id) throws IOException;
+
+    void getRecipe();
+
 
     void updateRecipe(Integer number, Recipe recipe);
 
