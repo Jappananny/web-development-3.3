@@ -2,7 +2,7 @@ package ru.japanrecipe.recipe.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.service.FilesService;
-
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,5 +48,18 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
-
+    //Получение файла
+    @Override
+    public File getDataFile(){
+        return new File(dataFilePath + "/" + dataFileName);
+    }
+    //Создание временых файлов
+    @Override
+    public Path createTempFile(String siffix){
+        try {
+            return Files.createTempFile(Path.of(dataFilePath),"tempFile", siffix);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
