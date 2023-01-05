@@ -10,18 +10,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.japanrecipe.recipe.service.FilesService;
-
 import java.io.*;
-import java.nio.file.Path;
-
 @RestController
 @RequestMapping("/files")
 @Tag(name = "Работа с файлами", description = "CRUD операции с файлами")
 public class FilesController {
     private final FilesService filesService;
 
+
     public FilesController(FilesService filesService) {
         this.filesService = filesService;
+    }
+    @GetMapping("recipeExportAsTxt")
+    @Operation(summary = "Сохранение файла с рецептами на компьютер пользователя в формате txt")
+    public ResponseEntity<InputStreamResource> downloadRecipesAsTxt() throws FileNotFoundException {
+        File file = filesService.getTxtFile();
+        if (file.exists()) {
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+            return ResponseEntity.ok().
+                    contentLength(file.length()).
+                    contentType(MediaType.TEXT_PLAIN).
+                    header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"Recipes.txt\"").
+                    body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     //Экспорт файла
     @GetMapping(value = "/export")
@@ -53,19 +66,5 @@ public class FilesController {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        //
-        //Ручное добовление файла
-//        try (BufferedInputStream bis = new BufferedInputStream(file.getInputStream());
-//                FileOutputStream fos = new FileOutputStream(dataFile);
-//                BufferedOutputStream bos = new BufferedOutputStream(fos)) {
-//            byte[] buffer = new byte[1024];
-//            while (bis.read(buffer) > 0){
-//                bos.write(buffer);
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }

@@ -13,6 +13,11 @@ public class FilesServiceImpl implements FilesService {
     private String dataFilePath;
     @Value("${name.of.data.file}")
     private String dataFileName;
+    @Value("${path.to.recipesTXT.file}")
+    private String recipesTxtFilePath;
+
+    @Value("${name.of.recipesTXT.file}")
+    private String recipeTxtFileName;
     //Сохранение в фаил
     @Override
     public boolean saveToFile(String json){
@@ -22,6 +27,16 @@ public class FilesServiceImpl implements FilesService {
             return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+    @Override
+    public boolean saveRecipesToTxtFile(String txt) {
+        try {
+            cleanRecipeTxtFile();
+            Files.writeString(Path.of(recipesTxtFilePath, recipeTxtFileName), txt);
+            return true;
+        } catch (IOException e) {
             return false;
         }
     }
@@ -48,10 +63,27 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
+    @Override
+    public void cleanRecipeTxtFile(){
+        try {
+            Path path = Path.of(recipesTxtFilePath, recipeTxtFileName);
+            Files.deleteIfExists(path);
+            Files.createFile(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     //Получение файла
     @Override
     public File getDataFile(){
         return new File(dataFilePath + "/" + dataFileName);
+    }
+    @Override
+    public File getTxtFile() {
+        if (Files.exists(Path.of(recipesTxtFilePath, recipeTxtFileName))) {
+            return new File(recipesTxtFilePath + "/" + recipeTxtFileName);
+        }
+        return null;
     }
     //Создание временых файлов
     @Override
