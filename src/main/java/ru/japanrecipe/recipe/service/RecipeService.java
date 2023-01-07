@@ -16,4 +16,6 @@ public interface RecipeService {
 
     void deleteRecipe(Integer number);
 
+    //Чтение ищ файла
+    void readFromFile();
 }

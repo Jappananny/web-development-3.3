@@ -1,10 +1,12 @@
 package ru.japanrecipe.recipe.service.impl;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.model.Recipe;
+import ru.japanrecipe.recipe.service.CustomExeprion;
 import ru.japanrecipe.recipe.service.FilesService;
 import ru.japanrecipe.recipe.service.RecipeService;
 
@@ -14,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    final private FilesService filesService;
+    private final FilesService filesService;
     private Integer id = counter;
     private static Integer counter = 0;
     private Map<Integer, Recipe> recipeMap = new LinkedHashMap<>();
@@ -40,11 +42,11 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public ResponseEntity<Recipe> getRecipeId(Integer id) throws IOException {
+    public ResponseEntity<Recipe> getRecipeId(Integer id) throws CustomExeprion {
         try{
                 return ResponseEntity.ok(recipeMap.get(id));
-            } catch (Exception e){
-            throw new IOException("Такого рецепта нет");
+            } catch (CustomExeprion e){
+            throw new CustomExeprion("Такого рецепта нет");
         }
     }
     @Override
@@ -61,18 +63,19 @@ public class RecipeServiceImpl implements RecipeService {
         try {
             String json = new ObjectMapper().writeValueAsString(recipeMap);
             filesService.saveToFile(json);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new CustomExeprion("Нечего сохронять");
         }
     }
     //Чтение ищ файла
-    private void readFromFile(){
+    @Override
+    public void readFromFile(){
         try {
             String json = filesService.readFromFile();
-            recipeMap =  new ObjectMapper().readValue(json, new TypeReference<Map<Integer,Recipe>>() {
+            recipeMap =  new ObjectMapper().readValue(json, new TypeReference<LinkedHashMap<Integer,Recipe>>() {
             });
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CustomExeprion("Файлов для чтения нет");
         }
     }
 }
