@@ -2,14 +2,12 @@ package ru.japanrecipe.recipe.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.model.Recipe;
-import ru.japanrecipe.recipe.service.CustomExeprion;
+import ru.japanrecipe.recipe.service.CustomException;
 import ru.japanrecipe.recipe.service.FilesService;
 import ru.japanrecipe.recipe.service.RecipeService;
-
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -42,11 +40,11 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public ResponseEntity<Recipe> getRecipeId(Integer id) throws CustomExeprion {
+    public ResponseEntity<Recipe> getRecipeId(Integer id) throws CustomException {
         try{
                 return ResponseEntity.ok(recipeMap.get(id));
-            } catch (CustomExeprion e){
-            throw new CustomExeprion("Такого рецепта нет");
+            } catch (CustomException e){
+            throw new CustomException( "Такого рецепта нет");
         }
     }
     @Override
@@ -64,10 +62,10 @@ public class RecipeServiceImpl implements RecipeService {
             String json = new ObjectMapper().writeValueAsString(recipeMap);
             filesService.saveToFile(json);
         } catch (JsonProcessingException e) {
-            throw new CustomExeprion("Нечего сохронять");
+            throw new CustomException("Нечего сохронять");
         }
     }
-    //Чтение ищ файла
+    //Чтение из файла
     @Override
     public void readFromFile(){
         try {
@@ -75,7 +73,7 @@ public class RecipeServiceImpl implements RecipeService {
             recipeMap =  new ObjectMapper().readValue(json, new TypeReference<LinkedHashMap<Integer,Recipe>>() {
             });
         } catch (IOException e) {
-            throw new CustomExeprion("Файлов для чтения нет");
+            throw new CustomException("Файлов для чтения нет");
         }
     }
 }

@@ -18,27 +18,27 @@ public class IngredientsController {
         return "Сратовая страничка ингредиентов";
     }
     //Добавление ингредиента
-    @PostMapping("/addIngredient")
+    @PostMapping("/")
     @Operation(summary = "Добавление ингредиента", description = "Добовляет ингридиент через тело запроса")
     public ResponseEntity<String> addIngredient(@RequestBody Ingredient ingredient) {
         this.ingredientService.addIngredient(ingredient);
         return ResponseEntity.ok("Ингредиент добавлен");
     }
     //Получение айли ингредиента
-    @GetMapping("/ingredientId/{ingredientId}")
+    @GetMapping("/{id}")
     @Operation(summary = "Вывод ингридиента", description = "Выводит ингридиент по айди в формате json")
     public void getIngredientId(@RequestParam Integer id) {
         this.ingredientService.getIngredient(id);
     }
     //Изменяет ингридиент
-    @PutMapping("/update/{ingredientId}")
+    @PutMapping("/{id}")
     @Operation(summary = "Изменение ингредиента", description = "Изменяет игредиент по айди в формате json")
     public ResponseEntity<String> update(@PathVariable String ingredientId, @RequestBody Ingredient ingredient) {
         ingredientService.updateIngredient(Integer.parseInt(ingredientId), ingredient);
         return  ResponseEntity.ok("Рецепт изменен");
     }
     //Удоляет иншридиент
-    @DeleteMapping("/delete/{ingredientId}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Улоление ингредиента", description = "Удоляет ингредиент по айди")
     public void delete(@PathVariable String ingredientId) {
         ingredientService.deleteIngredient(Integer.parseInt(ingredientId));
