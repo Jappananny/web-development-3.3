@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.japanrecipe.recipe.model.Recipe;
+import ru.japanrecipe.recipe.service.CustomException;
 import ru.japanrecipe.recipe.service.RecipeService;
 import ru.japanrecipe.recipe.service.impl.RecipeServiceImpl;
 
@@ -32,8 +33,12 @@ public class RecipeController {
     //Выводит айди рецепта
     @GetMapping("/{id}")
     @Operation(summary = "Вывод рецепта", description = "Выводит рецепт по айди в формате json")
-    public ResponseEntity<Recipe> getRecipeId(@PathVariable Integer id) throws IOException {
-        return recipeService.getRecipeId(id);
+    public ResponseEntity<Recipe> getRecipeId(@PathVariable Integer id) throws CustomException {
+        try {
+            return recipeService.getRecipeId(id);
+        } catch (CustomException e) {
+            throw new CustomException("Рецепта нет");
+        }
     }
     //Изменяет рецепт
     @PutMapping("/{id}")

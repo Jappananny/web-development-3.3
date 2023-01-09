@@ -1,6 +1,7 @@
 package ru.japanrecipe.recipe.service.impl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.japanrecipe.recipe.service.CustomException;
 import ru.japanrecipe.recipe.service.FilesService;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class FilesServiceImpl implements FilesService {
             return Files.readString(Path.of(dataFilePath, dataFileName));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new CustomException("Файла нет");
         }
     }
     //Удаление файла
@@ -91,7 +92,7 @@ public class FilesServiceImpl implements FilesService {
         try {
             return Files.createTempFile(Path.of(dataFilePath),"tempFile", siffix);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CustomException("Ничего нет");
         }
     }
 }

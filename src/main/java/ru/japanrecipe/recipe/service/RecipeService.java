@@ -7,7 +7,7 @@ import java.io.IOException;
 public interface RecipeService {
     void addRecipe(Recipe recipe);
 
-    ResponseEntity<Recipe> getRecipeId(Integer id) throws IOException;
+    ResponseEntity<Recipe> getRecipeId(Integer id) throws CustomException;
 
     void getRecipe();
 

@@ -40,7 +40,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public ResponseEntity<Recipe> getRecipeId(Integer id) throws CustomException {
+    public ResponseEntity<Recipe> getRecipeId(Integer id) {
         try{
                 return ResponseEntity.ok(recipeMap.get(id));
             } catch (CustomException e){
@@ -67,7 +67,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
     //Чтение из файла
     @Override
-    public void readFromFile(){
+    public void readFromFile() {
         try {
             String json = filesService.readFromFile();
             recipeMap =  new ObjectMapper().readValue(json, new TypeReference<LinkedHashMap<Integer,Recipe>>() {
