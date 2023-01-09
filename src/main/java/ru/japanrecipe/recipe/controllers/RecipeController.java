@@ -33,7 +33,7 @@ public class RecipeController {
     //Выводит айди рецепта
     @GetMapping("/{id}")
     @Operation(summary = "Вывод рецепта", description = "Выводит рецепт по айди в формате json")
-    public ResponseEntity<Recipe> getRecipeId(@PathVariable Integer id) throws CustomException {
+    public ResponseEntity<Recipe> getRecipeId(@PathVariable Integer id) {
         try {
             return recipeService.getRecipeId(id);
         } catch (CustomException e) {

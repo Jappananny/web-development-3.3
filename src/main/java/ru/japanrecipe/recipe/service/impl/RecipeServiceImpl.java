@@ -41,11 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public ResponseEntity<Recipe> getRecipeId(Integer id) {
-        try{
-                return ResponseEntity.ok(recipeMap.get(id));
-            } catch (CustomException e){
-            throw new CustomException( "Такого рецепта нет");
-        }
+        return ResponseEntity.ok(recipeMap.get(id));
     }
     @Override
     public void updateRecipe(Integer recipeId, Recipe recipe) {
