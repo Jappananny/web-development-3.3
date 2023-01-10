@@ -58,7 +58,7 @@ public class RecipeServiceImpl implements RecipeService {
             String json = new ObjectMapper().writeValueAsString(recipeMap);
             filesService.saveToFile(json);
         } catch (JsonProcessingException e) {
-            throw new CustomException("Нечего сохронять");
+            throw new RecipeExceptionimpl("Нечего сохронять");
         }
     }
     //Чтение из файла
@@ -69,7 +69,7 @@ public class RecipeServiceImpl implements RecipeService {
             recipeMap =  new ObjectMapper().readValue(json, new TypeReference<LinkedHashMap<Integer,Recipe>>() {
             });
         } catch (IOException e) {
-            throw new CustomException("Файлов для чтения нет");
+            throw new RecipeExceptionimpl("Файлов для чтения нет");
         }
     }
 }

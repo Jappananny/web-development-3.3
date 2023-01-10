@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.japanrecipe.recipe.model.Recipe;
 import ru.japanrecipe.recipe.service.CustomException;
 import ru.japanrecipe.recipe.service.RecipeService;
+import ru.japanrecipe.recipe.service.impl.RecipeExceptionimpl;
 import ru.japanrecipe.recipe.service.impl.RecipeServiceImpl;
 
 import java.io.IOException;
@@ -36,8 +37,8 @@ public class RecipeController {
     public ResponseEntity<Recipe> getRecipeId(@PathVariable Integer id) {
         try {
             return recipeService.getRecipeId(id);
-        } catch (CustomException e) {
-            throw new CustomException("Рецепта нет");
+        } catch (RecipeExceptionimpl e) {
+            throw new RecipeExceptionimpl("Рецепта нет");
         }
     }
     //Изменяет рецепт
