@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.japanrecipe.recipe.model.Recipe;
-import ru.japanrecipe.recipe.service.CustomException;
 import ru.japanrecipe.recipe.service.FilesService;
 import ru.japanrecipe.recipe.service.RecipeService;
 import javax.annotation.PostConstruct;
@@ -58,7 +57,7 @@ public class RecipeServiceImpl implements RecipeService {
             String json = new ObjectMapper().writeValueAsString(recipeMap);
             filesService.saveToFile(json);
         } catch (JsonProcessingException e) {
-            throw new RecipeExceptionimpl("Нечего сохронять");
+            throw new FileRecipeExceptionimpl("Неудолось сохранить в фаил");
         }
     }
     //Чтение из файла
@@ -69,7 +68,7 @@ public class RecipeServiceImpl implements RecipeService {
             recipeMap =  new ObjectMapper().readValue(json, new TypeReference<LinkedHashMap<Integer,Recipe>>() {
             });
         } catch (IOException e) {
-            throw new RecipeExceptionimpl("Файлов для чтения нет");
+            throw new FileRecipeExceptionimpl("Файлов для чтения нет");
         }
     }
 }

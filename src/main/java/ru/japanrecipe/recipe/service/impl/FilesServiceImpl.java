@@ -48,7 +48,7 @@ public class FilesServiceImpl implements FilesService {
             return Files.readString(Path.of(dataFilePath, dataFileName));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new CustomException("Файла нет");
+            throw new FileRecipeExceptionimpl("Файлов для чтения не найдено");
         }
     }
     //Удаление файла
@@ -92,7 +92,7 @@ public class FilesServiceImpl implements FilesService {
         try {
             return Files.createTempFile(Path.of(dataFilePath),"tempFile", siffix);
         } catch (IOException e) {
-            throw new CustomException("Ничего нет");
+            throw new FileRecipeExceptionimpl("Временный фаил не создался");
         }
     }
 }

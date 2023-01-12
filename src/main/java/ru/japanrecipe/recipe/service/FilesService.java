@@ -14,7 +14,6 @@ public interface FilesService {
 
     void cleanRecipeTxtFile();
 
-    //
     File getDataFile();
 
     File getTxtFile();

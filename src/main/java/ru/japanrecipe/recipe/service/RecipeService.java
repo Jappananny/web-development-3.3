@@ -9,9 +9,6 @@ public interface RecipeService {
 
     ResponseEntity<Recipe> getRecipeId(Integer id);
 
-    void getRecipe();
-
-
     void updateRecipe(Integer number, Recipe recipe);
 
     void deleteRecipe(Integer number);

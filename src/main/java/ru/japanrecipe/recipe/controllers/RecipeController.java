@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.japanrecipe.recipe.model.Recipe;
-import ru.japanrecipe.recipe.service.CustomException;
 import ru.japanrecipe.recipe.service.RecipeService;
 import ru.japanrecipe.recipe.service.impl.RecipeExceptionimpl;
 import ru.japanrecipe.recipe.service.impl.RecipeServiceImpl;
