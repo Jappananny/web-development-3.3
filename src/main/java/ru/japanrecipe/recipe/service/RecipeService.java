@@ -7,6 +7,8 @@ import java.io.IOException;
 public interface RecipeService {
     void addRecipe(Recipe recipe);
 
+    void getRecipe();
+
     ResponseEntity<Recipe> getRecipeId(Integer id);
 
     void updateRecipe(Integer number, Recipe recipe);
